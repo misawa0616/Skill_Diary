@@ -115,9 +115,11 @@ git reset --hard
 	2. git add <変更ファイル>
 	3. git commit 
 	4. git push origin pull_request
-	5. 
-
-
+	5. https://github.com/misawa0616/Skill_Diary/pulls でpull requestを作成する。
+	6. 管理者が、マージする
+	7. git checkout master
+	8. git branch -D pull_request
+	9. 全員がgit pull
 
 ------------------------------------------------------------------------
 
