@@ -111,6 +111,11 @@ git reset --hard
 	git push -u <リモート名> <ブランチ名>
 
 ・開発の流れ
+	1. git checkout -b pull_request
+	2. git add <変更ファイル>
+	3. git commit 
+	4. git push origin pull_request
+	5. 
 
 
 
