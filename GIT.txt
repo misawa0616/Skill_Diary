@@ -83,7 +83,10 @@ git reset --hard
 	   git add .   (全ての意味)
 	#ステージはcommitする変更を準備するために存在する。
 
-
+・ステージに追加された変更をリポジトリに反映、記録。
+	1. git commit
+	   git commit -m "<メッセージ>"
+	   git commit -v
 
 ・リモートリポジトリ作成
 	1. https://github.com/アカウント名/
@@ -107,7 +110,7 @@ git reset --hard
 	# -uで今後git pushだけで実行できる。
 	git push -u <リモート名> <ブランチ名>
 
-・
+・開発の流れ
 
 
 
