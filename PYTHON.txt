@@ -270,3 +270,12 @@ view-source:https://getbootstrap.com/docs/4.4/examples/sign-in/
 
 https://yukimonkey.com/js-python/like-button/
 ------------------------------------------------------------------------
+
+
+1月8日
+------------------------------------------------------------------------
+django-admin startproject mysite
+python manage.py startapp polls
+python manage.py makemigrations
+python manage.py migrate
+------------------------------------------------------------------------
