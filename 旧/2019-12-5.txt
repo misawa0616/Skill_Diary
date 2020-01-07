@@ -1,0 +1,65 @@
+<BlockChain>
+
+<AI>
+
+<English>
+
+<Bot>
+
+<Law>
+
+<Work>
+
+<Python>
+
+
+・pythonの環境は移行できることを知る。
+------------------------------------------------------------------------
+〇旧環境
+pip freeze > requirements.txt
+
+〇新環境
+pip install -r requirements.txt
+
+------------------------------------------------------------------------
+
+
+・2:00-2:40 CSVで書かれた文字のファイルをpythonで作成する。
+------------------------------------------------------------------------
+import csv
+
+a = []
+with open('C:\\Users\\81805\\Desktop\\Skill_Diary\\a.csv', 'r') as csv_file:
+    reader = csv.DictReader(csv_file)
+    for row in reader:
+        a.append(row['DAY'])
+
+d = []
+for b in a:
+    c = b.replace('/', '-')
+    d.append(c)
+
+for e in d:
+    with open("C:\\Users\\81805\\Desktop\\Skill_Diary\\" + '{}.txt'.format(e),
+              'w') as text:
+        text.write('<BlockChain>')
+        text.write('\n')
+        text.write('\n')
+        text.write('<AI>')
+        text.write('\n')
+        text.write('\n')
+        text.write('<English>')
+        text.write('\n')
+        text.write('\n')
+        text.write('<Bot>')
+        text.write('\n')
+        text.write('\n')
+        text.write('<Law>')
+        text.write('\n')
+        text.write('\n')
+        text.write('<Work>')
+        text.write('\n')
+        text.write('\n')
+        text.write('<Python>')
+------------------------------------------------------------------------
+http://python-remrin.hatenadiary.jp/entry/2017/05/02/182203

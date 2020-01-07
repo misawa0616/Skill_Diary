@@ -1,0 +1,114 @@
+●1月1日
+
+------------------------------------------------------------------------
+・NG
+同じブランチで、pull前に同じ行に複数ユーザが同じファイルを更新した場合
+
+ユーザ1がbbb.txtを空からSSSに更新
+ユーザ2がbbb.txtを空からGGGに更新
+
+・ユーザ1のpush
+$ git push origin master
+Fatal: HttpRequestException encountered.
+Username for 'https://github.com': misawa0616
+Counting objects: 3, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (2/2), done.
+Writing objects: 100% (3/3), 270 bytes | 0 bytes/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/misawa0616/git_tutorial_back
+   d5431ee..e78f758  master -> master
+
+
+・ユーザ2がユーザ1のpushの上から、pushしようとしたところ、エラー
+C:\Users\81805\Desktop\test>git push origin master
+Fatal: HttpRequestException encountered.
+Username for 'https://github.com': misawa0616
+Password for 'https://misawa0616@github.com':
+To https://github.com/misawa0616/git_tutorial_back.git
+ ! [rejected]        master -> master (non-fast-forward)
+error: failed to push some refs to 'https://github.com/misawa0616/git_tutorial_back.git'
+hint: Updates were rejected because the tip of your current branch is behind
+hint: its remote counterpart. Integrate the remote changes (e.g.
+hint: 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+
+・pullも失敗する。
+C:\Users\81805\Desktop\test>git pull origin master
+From https://github.com/misawa0616/git_tutorial_back
+ * branch            master     -> FETCH_HEAD
+Updating d5431ee..e78f758
+error: Your local changes to the following files would be overwritten by merge:
+        bbb.txt
+Please commit your changes or stash them before you can merge.
+Aborting
+
+
+・ユーザ2のコミットを戻すなどして対処する必要がある。競合してはならない
+git reset --hard
+
+------------------------------------------------------------------------
+
+●1月7日
+
+------------------------------------------------------------------------
+・gitの構造
+	ワークツリー - ステージ - リポジトリ
+	┗リポジトリ
+	┗ステージ … commitする変更を準備する。
+	※もっというと、ワークツリーには適用したい内容とそうでない内容があると思うので、
+	一部の内容だけcommitするためにステージが存在する。
+	┗ワークツリー
+
+
+・ローカルリポジトリの新規作成
+	1. .gitディレクトリを作成する。
+	git init
+	# プロジェクトディレクトリで実行する。
+	# .gitディレクトリには、gitに必要なほとんどすべてのものが含まれている。
+		.git/
+			┗リポジトリ
+				┗圧縮ファイル
+				┗ツリーファイル
+				┗コミットファイル
+			┗インデックスファイル
+			┗設定ファイル
+
+・リモートリポジトリをローカルリポジトリに反映
+	1. git clone <リポジトリ>
+
+・ワークツリーの変更をステージに追加。
+	1. git add <ファイル名>
+	   git add <ディレクトリ名>
+	   git add .   (全ての意味)
+	#ステージはcommitする変更を準備するために存在する。
+
+
+
+・リモートリポジトリ作成
+	1. https://github.com/アカウント名/
+	のRepositoriesタブのNewでリポジトリを作成する。
+	
+	2. リモートリポジトリのURLのショートカットを登録する。
+	git remote add <リモート名> <リモートURL>
+	# 例
+	git remote add origin https://github.com/misawa0616/myblogapp.git
+	# 今後はURLの代わりに<リモート名>(originなど)でgithubリポジトリにアップしたり取得したりできる。
+
+・リモートリポジトリの表示
+	1. git remote
+	# 対応するURLを表示
+	2. git remote -v
+
+・ローカルリポジトリをリモートリポジトリに反映
+	git push <リモート名> <ブランチ名>
+	# 例
+	git push origin master
+	# -uで今後git pushだけで実行できる。
+	git push -u <リモート名> <ブランチ名>
+
+・
+
+
+
+------------------------------------------------------------------------

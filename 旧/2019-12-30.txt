@@ -1,0 +1,25 @@
+<BlockChain>
+
+<AI>
+
+<English>
+
+<Bot>
+
+<Law>
+
+<Work>
+
+<Python>
+
+------------------------------------------------------------------------
+・django
+urls path
+Class based viewの場合、as_viewをつける。
+
+django-admin startproject プロジェクト名
+python3 manage.py startapp アプリ名
+
+https://docs.djangoproject.com/ja/3.0/intro/tutorial01/
+
+------------------------------------------------------------------------

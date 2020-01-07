@@ -1,0 +1,123 @@
+<BlockChain>
+
+<AI>
+
+<English>
+
+<Bot>
+
+<Law>
+
+<Work>
+
+<Python>
+
+
+<Ubuntu>
+
+インターネット→NGINX(静的ファイル,httpプロキシ)→wsgi→gunicorn(アプリケーションサーバ)→Django
+
+=======================================================================================================================================================================
+
+〇guniron
+
+pip install gunicorn
+
+sudo vi /etc/systemd/system/gunicorn.service
+
+-------------------------------------------------------------------------------
+[Unit]
+Description=gunicorn deamon
+After=network.target
+
+[Service]
+User=ubuntu
+Group=www-data
+WorkingDirectory=/home/ubuntu/myblogapp
+ExecStart=/usr/local/bin/gunicorn --access-logfile - --workers 2 --bind unix:/home/ubuntu/myblogapp/myblogapp.sock myblogapp.wsgi:application
+#ExecStart=/usr/local/bin/gunicorn --bind 127.0.0.1:8000 myblogapp.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
+-------------------------------------------------------------------------------
+
+シンボリックリンク
+sudo systemctl start gunicorn
+sudo systemctl enable gunicorn
+
+sudo systemctl status gunicorn
+-------------------------------------------------------------------------------
+● gunicorn.service - gunicorn deamon
+   Loaded: loaded (/etc/systemd/system/gunicorn.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sat 2019-12-07 23:43:47 JST; 6min ago
+ Main PID: 767 (gunicorn)
+    Tasks: 22 (limit: 3542)
+   CGroup: /system.slice/gunicorn.service
+           ├─ 767 /usr/bin/python3 /usr/local/bin/gunicorn --access-logfile - --workers 2 --bind unix:/home/ubuntu/myblogapp/myblogapp.sock myblogapp.wsgi:application
+           ├─1486 /usr/bin/python3 /usr/local/bin/gunicorn --access-logfile - --workers 2 --bind unix:/home/ubuntu/myblogapp/myblogapp.sock myblogapp.wsgi:application
+           └─1487 /usr/bin/python3 /usr/local/bin/gunicorn --access-logfile - --workers 2 --bind unix:/home/ubuntu/myblogapp/myblogapp.sock myblogapp.wsgi:application
+-------------------------------------------------------------------------------
+
+
+
+〇nginx
+
+cd /etc/nginx/sites-available
+sudo vi myblogapp
+-------------------------------------------------------------------------------
+server {
+        listen 8000;
+        server_name 10.0.2.15;
+
+        location = /favicon.iso {access_log off; log_not_found off;}
+        location /static {
+                alias /home/ubuntu/myblogapp/inuneko3/static;
+        }
+
+        location / {
+                include proxy_params;
+                proxy_pass http://unix:/home/ubuntu/myblogapp/myblogapp.sock;
+        }
+}
+-------------------------------------------------------------------------------
+
+シンボリックリンク
+sudo ln -s /etc/nginx/sites-available/myblogapp /etc/nginx/sites-enabled/
+
+sudo nginx -t
+
+sudo systemctl restart nginx
+
+sudo systemctl status nginx
+-------------------------------------------------------------------------------
+● nginx.service - A high performance web server and a reverse proxy server
+   Loaded: loaded (/lib/systemd/system/nginx.service; enabled; vendor preset: enabled)
+   Active: active (running) since Sat 2019-12-07 23:43:49 JST; 9min ago
+     Docs: man:nginx(8)
+  Process: 849 ExecStart=/usr/sbin/nginx -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+  Process: 765 ExecStartPre=/usr/sbin/nginx -t -q -g daemon on; master_process on; (code=exited, status=0/SUCCESS)
+ Main PID: 850 (nginx)
+    Tasks: 3 (limit: 3542)
+   CGroup: /system.slice/nginx.service
+           ├─850 nginx: master process /usr/sbin/nginx -g daemon on; master_process on;
+           ├─851 nginx: worker process
+           └─852 nginx: worker process
+-------------------------------------------------------------------------------
+
+
+=======================================================================================================================================================================
+
+wget https://nginx.org/keys/nginx_signing.key
+sudo apt-key add nginx_signing.key
+sudo vi /etc/apt/sources.list
+
+deb http://nginx.org/packages/ubuntu/ bionic nginx
+deb-src http://nginx.org/packages/ubuntu/ bionic nginx
+
+sudo apt update
+
+apt show nginx
+
+sudo apt install nginx
+
+nginx -v

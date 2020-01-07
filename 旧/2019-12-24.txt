@@ -1,0 +1,17 @@
+<BlockChain>
+
+<AI>
+
+<English>
+
+<Bot>
+
+<Law>
+
+<Work>
+
+<Python>
+
+------------------------------------------------------------------------
+https://stackoverflow.com/questions/33101935/convert-pil-image-to-byte-array
+------------------------------------------------------------------------

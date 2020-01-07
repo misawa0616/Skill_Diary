@@ -1,0 +1,53 @@
+●12月6日
+
+・認証プラグインのせいで、mysqlに接続ができない。
+------------------------------------------------------------------------
+
+〇rootの認証プラグインを、caching_sha2_passwordからmysql_native_passwordへ変更することにより解決。
+以下コマンド
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+
+https://www.petitmonte.com/database/mysql_authentication_plugin.html
+
+------------------------------------------------------------------------
+
+
+●12月28日
+
+------------------------------------------------------------------------
+・エクスポート
+mysqldump --single-transaction -u root -p myblogapp > myblogapp.dump
+
+・インポート
+mysql -u root -p myblogapp < myblogapp.dump
+
+・エラーがでる。
+ERROR 1300 (HY000) at line 22: Invalid utf8 character string: '\x92\x86\x8A\xD4\x83e\x83X\x83g'
+
+mysql> show tables;
++------------------------+
+| Tables_in_myblogapp    |
++------------------------+
+| 中間テスト             |
+| auth_group             |
+| auth_group_permissions |
+| auth_permission        |
+| django_admin_log       |
+| django_content_type    |
+| django_migrations      |
+| django_session         |
+| inuneko3_image         |
+| inuneko3_image_buttai  |
+| inuneko3_inuneko3      |
+| posts_post             |
+| racchai_user           |
++------------------------+
+13 rows in set (0.04 sec)
+
+drop database 中間テスト;
+を実行してテーブルを削除することで解決。
+なぜこのようなエラーが出たのかが不明。
+
+https://qiita.com/iika0220/items/01d4b8bde4c06cf13fec
+
+------------------------------------------------------------------------

@@ -1,0 +1,31 @@
+<BlockChain>
+
+<AI>
+
+<English>
+
+<Bot>
+
+<Law>
+
+<Work>
+
+<Python>
+
+------------------------------------------------------------------------
+
+https://udomomo.hatenablog.com/entry/2018/08/14/234153
+
+https://codor.co.jp/django/how-to-use-redirect
+
+https://python.keicode.com/django/form-validation.php
+https://eiry.bitbucket.io/tutorials/guest_board/models.html
+
+
+from .xxx import yyy
+form xxx import yyy
+
+.xxxは現在のディレクトリから探しに行く。
+xxxはパスを通した環境から探しに行く。
+
+------------------------------------------------------------------------

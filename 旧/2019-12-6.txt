@@ -1,0 +1,70 @@
+<BlockChain>
+
+<AI>
+
+<English>
+
+<Bot>
+
+<Law>
+
+<Work>
+
+<Python>
+
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+<mysql>
+
+・認証プラグインのせいで、mysqlに接続ができない。
+------------------------------------------------------------------------
+〇rootの認証プラグインを、caching_sha2_passwordからmysql_native_passwordへ変更することにより解決。
+以下コマンド
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'password';
+------------------------------------------------------------------------
+https://www.petitmonte.com/database/mysql_authentication_plugin.html
+
+<ubuntu>
+
+・python絡みで盛大にトラぶる。どうして解決したかは不明。
+------------------------------------------------------------------------
+sudo apt-get update
+sudo apt-get upgrade -y
+sudo apt install net-tools
+sudo apt-get install git
+git config --global user.name misawa0616
+git config --global user.email takumajane@ezweb.ne.jp
+git clone https://github.com/misawa0616/myblogapp
+sudo pip3 install MySQL-python
+sudo pip3 install utils
+hash -r
+sudo apt-get install mysql-server
+sudo apt-get install libmysqlclient-dev
+sudo apt-get install libmariadbclient-dev
+pip3 install mysqlclient
+wget https://bootstrap.pypa.io/get-pip.py
+sudo python3 get-pip.py
+pip3 install -r requirements.txt
+sudo pip install tensorflow==1.15.0rc2
+------------------------------------------------------------------------
+
+・ポートフォワーディング
+------------------------------------------------------------------------
+Virtual BoxでNAT設定時、ホストOS→ゲストOS通信はできないため、ポートフォワーディングを使用。
+設定
+ネットワーク→高度→ポートフォワーディング
+------------------------------------------------------------------------
+
+・eginx
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+
+・gunicorn
+------------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
